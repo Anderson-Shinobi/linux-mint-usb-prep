@@ -17,6 +17,9 @@
 - Melhorada a detecção usando RM=1 ou transporte USB.
 - Adicionado diagnóstico quando um dispositivo é bloqueado.
 
+### Tested
+- Validado em pendrive USB real detectado como /dev/sdb com RM=1 e TRAN=usb.
+
 ### Changed
 - Refatorado o script em funções menores.
 - Melhoradas mensagens de segurança para o usuário.
