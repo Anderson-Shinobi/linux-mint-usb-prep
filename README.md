@@ -16,6 +16,17 @@ Por seguranca, a versao 0.1.1 bloqueia particoes, discos criticos conhecidos, o 
 - Ubuntu
 - Debian
 
+## Teste em hardware real
+
+### Preparação do pendrive
+
+![USB prep success](docs/images/usb-prep-success.png)
+
+### Validação final
+
+![Validation and Git log](docs/images/validation-and-git-log.png)
+
+
 ## Dependencias
 
 - `lsblk`
