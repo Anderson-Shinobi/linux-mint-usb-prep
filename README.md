@@ -1,6 +1,6 @@
 # Linux Mint USB Prep
 
-Versao: 0.1.1
+Versao: 0.1.2
 
 Script Bash para preparar com seguranca um pendrive removivel para instalacao do Linux Mint XFCE. Ele cria uma tabela GPT e uma particao FAT32 com o label `LINUX_MINT`.
 
