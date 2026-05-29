@@ -5,15 +5,6 @@
 # Autor: Anderson Nogueira
 # Descrição: Prepara com segurança um pendrive para instalação do Linux Mint XFCE.
 # Licença: MIT
-
-## [0.1.2] - 2026-05-29
-
-#- Fixed
-#
-#- Corrigida a validação de dispositivos removíveis.
-#- Melhorada a detecção usando RM=1 ou transporte USB.
-#- Adicionado diagnóstico quando um dispositivo é bloqueado.
-
 # =============================================================================
 
 set -euo pipefail
@@ -26,6 +17,7 @@ NC='\033[0m'
 
 DEVICE=""
 PARTITION=""
+SCRIPT_VERSION="0.1.2"
 
 die() {
     echo -e "${RED}Erro: $*${NC}" >&2
@@ -35,7 +27,7 @@ die() {
 trap 'echo -e "${RED}Erro inesperado na linha $LINENO.${NC}" >&2' ERR
 
 print_header() {
-    echo -e "${BLUE}=== Linux Mint USB Prep v0.1.1 ===${NC}\n"
+    echo -e "${BLUE}=== Linux Mint USB Prep v${SCRIPT_VERSION} ===${NC}\n"
 }
 
 print_help() {
@@ -58,10 +50,10 @@ EOF
 }
 
 print_version() {
-    echo "0.1.1"
+    echo "$SCRIPT_VERSION"
 }
 
-check_root() {
+check_root() {  
     if [[ ${EUID} -ne 0 ]]; then
         die "Este script precisa ser executado como root ou com sudo. Use: sudo ./prepare_linux_mint_usb.sh"
     fi
