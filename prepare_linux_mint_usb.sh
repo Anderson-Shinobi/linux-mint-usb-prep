@@ -1,10 +1,19 @@
 #!/usr/bin/env bash
 # =============================================================================
 # Nome: Linux Mint USB Prep
-# Versão: 0.1.1
+# Versão: 0.1.2
 # Autor: Anderson Nogueira
 # Descrição: Prepara com segurança um pendrive para instalação do Linux Mint XFCE.
 # Licença: MIT
+
+## [0.1.2] - 2026-05-29
+
+#- Fixed
+#
+#- Corrigida a validação de dispositivos removíveis.
+#- Melhorada a detecção usando RM=1 ou transporte USB.
+#- Adicionado diagnóstico quando um dispositivo é bloqueado.
+
 # =============================================================================
 
 set -euo pipefail
@@ -129,9 +138,24 @@ validate_not_system_disk() {
 
 validate_removable_device() {
     local is_removable
+    local transport
 
-    is_removable=$(lsblk -dno RM "$DEVICE" 2>/dev/null | head -n1)
-    [[ "$is_removable" == "1" ]] || die "Por seguranca, esta versao so permite dispositivos removiveis."
+    is_removable="$(lsblk -dnro RM "$DEVICE" 2>/dev/null | tr -d '[:space:]')"
+    transport="$(lsblk -dnro TRAN "$DEVICE" 2>/dev/null | tr -d '[:space:]')"
+
+    if [[ "$is_removable" == "1" ]]; then
+        return 0
+    fi
+
+    if [[ "$transport" == "usb" ]]; then
+        return 0
+    fi
+
+    echo -e "${RED}Erro: Por seguranca, esta versao so permite dispositivos removiveis.${NC}" >&2
+    echo "Dispositivo informado: $DEVICE" >&2
+    echo "RM detectado: ${is_removable:-desconhecido}" >&2
+    echo "TRAN detectado: ${transport:-desconhecido}" >&2
+    exit 1
 }
 
 show_device_summary() {
