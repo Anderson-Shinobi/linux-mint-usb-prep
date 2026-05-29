@@ -10,6 +10,13 @@
 - Bloqueado o uso de dispositivos não removíveis por padrão.
 - Melhorado tratamento de erros com função die e trap.
 
+## [0.1.2] - 2026-05-29
+
+### Fixed
+- Corrigida a validação de dispositivos removíveis.
+- Melhorada a detecção usando RM=1 ou transporte USB.
+- Adicionado diagnóstico quando um dispositivo é bloqueado.
+
 ### Changed
 - Refatorado o script em funções menores.
 - Melhoradas mensagens de segurança para o usuário.
